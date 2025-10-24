@@ -44,27 +44,6 @@ El analizador está desarrollado íntegramente en **Python**, con estructura mod
 <factor> → ID | NUM | ( <expresion> )
 <operador_rel> → .GT. | .LT. | .EQ.
 
-yaml
-Copiar código
-
----
-
-## 🧠 Estructura del Proyecto
-
-Si usas varios archivos (opcional):
-
-fortran77_parser/
-├── lexer.py # Analizador léxico
-├── parser_ll1.py # Analizador sintáctico (LL(1))
-├── ast_nodes.py # Definición de nodos del AST
-├── main.py # Programa principal
-└── README.md # Este documento
-
-yaml
-Copiar código
-
-También puedes tener **todo en un solo archivo** (`analizador_fortran77.py`), sin cambiar el funcionamiento.
-
 ---
 
 ## 🚀 Ejecución
@@ -80,8 +59,6 @@ El programa incluye una demo interna con un caso válido y otro con error.
 ✅ Ejemplo de Ejecución
 Entrada válida:
 
-fortran
-Copiar código
 PROGRAM SUMA
 A = 10
 B = 5
@@ -90,8 +67,6 @@ IF (C .GT. 12) THEN
 END
 Salida esperada:
 
-typescript
-Copiar código
 === TOKENS ===
 Token(type='PROGRAM', value='PROGRAM', line=1, col=1)
 Token(type='ID', value='SUMA', line=1, col=9)
@@ -112,16 +87,15 @@ Program(SUMA)
       Number(12.0)
 Entrada con error:
 
-fortran
-Copiar código
+
 PROGRAM TEST
 A = + * 5
 END
 Salida esperada:
 
-makefile
-Copiar código
 ERROR: Factor inválido en línea 2, col 5
+```
+
 🧱 Tecnologías y Librerías Utilizadas
 Python 3.9+
 
@@ -131,7 +105,7 @@ dataclasses — Estructuras para el AST
 
 typing — Anotaciones de tipo
 
-🔍 Funcionamiento Interno
+##🔍 Funcionamiento Interno
 Lexer: transforma el texto en una secuencia de tokens (palabras reservadas, identificadores, números, operadores).
 
 Parser LL(1): analiza la secuencia de tokens utilizando funciones recursivas que siguen la gramática formal.
