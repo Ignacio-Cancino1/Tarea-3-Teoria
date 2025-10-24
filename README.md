@@ -114,7 +114,7 @@ AST: se construye un árbol sintáctico que representa la estructura jerárquica
 
 Errores: se detectan y reportan con línea y columna exactas.
 
-🧩 Posibles Extensiones
+##🧩 Posibles Extensiones
 Implementar ELSE ... ENDIF dentro de los condicionales.
 
 Añadir bucles DO ... END DO.
@@ -123,7 +123,7 @@ Incorporar instrucciones READ y WRITE.
 
 Generar árbol en formato gráfico (graphviz o networkx).
 
-📚 Referencias
+##📚 Referencias
 Águila, J. (2004). Apunte de Compiladores: Análisis Sintáctico Predictivo por Descenso Recursivo. Universidad de Magallanes.
 
 Lévano, M. (2025). Clase: Tipos de Gramáticas y Lenguajes Formales. Universidad Católica de Temuco.
