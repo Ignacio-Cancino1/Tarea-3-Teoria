@@ -34,12 +34,12 @@ TOKEN_SPEC = [
     ("COMMA",    r","),
     ("NEWLINE",  r"\n"),
     ("SKIP",     r"[ \t\r\f\v]+"),
-    ("MISMATCH", r"."),
+    ("MISMATCH", r"."),  # cualquier otro símbolo
 ]
 MASTER_RE = re.compile("|".join(f"(?P<{n}>{p})" for n, p in TOKEN_SPEC))
 
 def preprocess(source: str) -> str:
-    """Mayúsculas + eliminar líneas que comienzan con C (comentarios FORTRAN77)"""
+    """Convierte a mayúsculas y elimina comentarios (líneas que comienzan con C/c)."""
     out = []
     for line in source.splitlines():
         if line and line[0] in ("C", "c"):
@@ -269,11 +269,78 @@ def run_demo(source: str):
         print("Programa aceptado.\n")
         print("=== AST ===")
         print(ast_to_str(ast))
+        return ast
     except ParseError as e:
         print("ERROR:", e)
+        return None
+
+# =====================================================
+# 6) AST a Graphviz (exportar a PNG)
+# =====================================================
+
+def ast_to_graphviz(node):
+    from graphviz import Digraph
+    dot = Digraph(comment="AST FORTRAN77", format="png")
+    counter = {"i": 0}
+
+    def new_id():
+        counter["i"] += 1
+        return f"n{counter['i']}"
+
+    def label(n):
+        t = type(n).__name__
+        if isinstance(n, Identifier): return f"Identifier\\n{n.name}"
+        if isinstance(n, Number): return f"Number\\n{n.value}"
+        return t
+
+    def walk(n):
+        nid = new_id()
+        dot.node(nid, label(n))
+        if isinstance(n, Program):
+            cid = walk(n.body); dot.edge(nid, cid)
+        elif isinstance(n, Block):
+            for st in n.statements:
+                cid = walk(st); dot.edge(nid, cid)
+        elif isinstance(n, Assignment):
+            tid = new_id(); dot.node(tid, f"Identifier\\n{n.target}")
+            dot.edge(nid, tid)
+            cid = walk(n.value); dot.edge(nid, cid)
+        elif isinstance(n, Conditional):
+            oid = new_id(); dot.node(oid, f"REL\\n{n.op}")
+            dot.edge(nid, oid)
+            dot.edge(nid, walk(n.left))
+            dot.edge(nid, walk(n.right))
+        elif isinstance(n, BinOp):
+            oid = new_id(); dot.node(oid, f"OP\\n{n.op}")
+            dot.edge(nid, oid)
+            dot.edge(nid, walk(n.left))
+            dot.edge(nid, walk(n.right))
+        elif isinstance(n, Paren):
+            dot.edge(nid, walk(n.inner))
+        return nid
+
+    walk(node)
+    return dot
+
+def export_demo_ast_png(outname="ast_fortran77"):
+    """Genera un PNG del AST usando la demo_ok."""
+    try:
+        ast = parse_source(demo_ok)
+        dot = ast_to_graphviz(ast)
+        outpath = dot.render(filename=outname, format="png", cleanup=True)
+        print(f"[OK] AST exportado: {outpath}")
+    except Exception as e:
+        print("[ERROR] No se pudo exportar el AST a PNG:", e)
+
+# =====================================================
+# 7) MAIN
+# =====================================================
 
 if __name__ == "__main__":
     print(">>> DEMO OK")
-    run_demo(demo_ok)
+    ast = run_demo(demo_ok)
     print("\n>>> DEMO ERR")
     run_demo(demo_err)
+
+    # Generar imagen del AST de la demo_ok
+    export_demo_ast_png("ast_fortran77")

@@ -1,0 +1,26 @@
+// AST FORTRAN77
+digraph {
+	n1 [label=Program]
+	n2 [label=Block]
+	n3 [label=Assignment]
+	n4 [label="Identifier\nA"]
+	n3 -> n4
+	n5 [label="Number\n10.0"]
+	n3 -> n5
+	n2 -> n3
+	n6 [label=Assignment]
+	n7 [label="Identifier\nB"]
+	n6 -> n7
+	n8 [label="Number\n5.0"]
+	n6 -> n8
+	n2 -> n6
+	n9 [label=Conditional]
+	n10 [label="REL\n.GT."]
+	n9 -> n10
+	n11 [label="Identifier\nC"]
+	n9 -> n11
+	n12 [label="Number\n12.0"]
+	n9 -> n12
+	n2 -> n9
+	n1 -> n2
+}
