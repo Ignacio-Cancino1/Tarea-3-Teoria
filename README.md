@@ -92,7 +92,31 @@ PROGRAM TEST
 A = + * 5
 END
 Salida esperada:
+=== AST ===
+Program(SUMA)
+  Block
+    Assignment(A)
+      Number(10.0)
+    Assignment(B)
+      Number(5.0)
+    Conditional(.GT.)
+      Identifier(C)
+      Number(12.0)
 
+
+>>> DEMO ERR
+=== TOKENS ===
+Token(type='PROGRAM', value='PROGRAM', line=1, col=1)
+Token(type='ID', value='TEST', line=1, col=9)
+Token(type='ID', value='A', line=2, col=1)
+Token(type='ASSIGN', value='=', line=2, col=3)
+Token(type='PLUS', value='+', line=2, col=5)
+Token(type='TIMES', value='*', line=2, col=7)
+Token(type='NUM', value='5', line=2, col=9)
+Token(type='END', value='END', line=3, col=1)
+Token(type='EOF', value='', line=3, col=0)
+
+=== PARSE ===
 ERROR: Factor inválido en línea 2, col 5
 ```
 
