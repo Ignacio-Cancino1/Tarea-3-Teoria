@@ -1,7 +1,7 @@
 # 🧮 Analizador Léxico y Sintáctico FORTRAN77 (LL(1))
 
 **Curso:** INFO1148 – Teoría de la Computación  
-**Autor:** *[Tu Nombre]*  
+**Autor:** *Demian  Binimelis , Ignacio  Cancino, Daniel Burgos*  
 **Lenguaje:** Python 3  
 **Fecha:** 2025  
 
