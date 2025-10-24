@@ -88,9 +88,11 @@ Program(SUMA)
 Entrada con error:
 
 
+demo_err = """\
 PROGRAM TEST
 A = + * 5
 END
+"""
 Salida esperada:
 === AST ===
 Program(SUMA)
