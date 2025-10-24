@@ -95,8 +95,9 @@ Salida esperada:
 
 ERROR: Factor inválido en línea 2, col 5
 ```
----
+
 🧱 Tecnologías y Librerías Utilizadas
+---
 Python 3.9+
 
 re — Expresiones regulares
@@ -104,8 +105,9 @@ re — Expresiones regulares
 dataclasses — Estructuras para el AST
 
 typing — Anotaciones de tipo
----
+
 ##🔍 Funcionamiento Interno
+---
 Lexer: transforma el texto en una secuencia de tokens (palabras reservadas, identificadores, números, operadores).
 
 Parser LL(1): analiza la secuencia de tokens utilizando funciones recursivas que siguen la gramática formal.
@@ -114,8 +116,9 @@ AST: se construye un árbol sintáctico que representa la estructura jerárquica
 
 Errores: se detectan y reportan con línea y columna exactas.
 
----
+
 ##🧩 Posibles Extensiones
+---
 Implementar ELSE ... ENDIF dentro de los condicionales.
 
 Añadir bucles DO ... END DO.
@@ -123,9 +126,10 @@ Añadir bucles DO ... END DO.
 Incorporar instrucciones READ y WRITE.
 
 Generar árbol en formato gráfico (graphviz o networkx).
----
+
 
 ##📚 Referencias
+---
 Águila, J. (2004). Apunte de Compiladores: Análisis Sintáctico Predictivo por Descenso Recursivo. Universidad de Magallanes.
 
 Lévano, M. (2025). Clase: Tipos de Gramáticas y Lenguajes Formales. Universidad Católica de Temuco.
